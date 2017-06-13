@@ -53,7 +53,7 @@ class HomeScreen extends React.Component {
         </View>
         <View style={{margin:50}}>
           <Button
-            onPress={() => navigate('Category')}
+            onPress={() => navigate('Category', { player1: this.state.player1, player2: this.state.player2 })}
             title="Start Game" 
           />
         </View>

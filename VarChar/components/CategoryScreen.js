@@ -25,9 +25,10 @@ export default class ChatScreen extends React.Component {
   };
   render() {
     const { navigate } = this.props.navigation;
+    const { params } = this.props.navigation.state;
     return (
       <View style={styles.container}>
-        <Text>Choose a Category</Text>
+        <Text>Choose a Category {params.player1}</Text>
         <TextInput
             style={styles.input}
             placeholder="Enter any word"
