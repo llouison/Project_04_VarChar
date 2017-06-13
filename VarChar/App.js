@@ -1,47 +1,62 @@
 import React from 'react';
-import { StyleSheet, TextInput, Text, View, Image, TouchableHighlight, Alert } from 'react-native';
+import { StyleSheet, Image, View, Button, Text, TextInput, AppRegistry } from 'react-native';
+import { StackNavigator, NavigationActions } from 'react-navigation';
+import CategoryScreen from './components/CategoryScreen'
+import GiverScreen from './components/GiverScreen'
 
-export default class App extends React.Component {
+class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: ''
+      player1: '',
+      player2: ''
     };
-    this._onPressButton = this._onPressButton.bind(this);
-    this.handlePlayerInput=this.handlePlayerInput.bind(this);
+    this.handlePlayer1Input=this.handlePlayer1Input.bind(this);
+    this.handlePlayer2Input=this.handlePlayer2Input.bind(this);
   }
 
-  _onPressButton() {
-    Alert.alert(`Let's Play ${this.state.name}!`)
+  handlePlayer1Input(event) {
+    this.setState({player1: event.target.value})
   }
 
-  handlePlayerInput(event) {
-    this.setState({inputAuthorValue: event.target.value})
+  handlePlayer2Input(event) {
+    this.setState({player2: event.target.value})
   }
 
+  static navigationOptions = {
+    title: 'VarChar',
+  };
   render() {
+    const { navigate } = this.props.navigation;
     let pic = {
       uri: 'http://www.smartfirstgraders.com/image-files/playing-cards-cartoony.jpg'
     };
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>VarChar</Text>
-        <Image source={pic} style={{width: 175, height: 166}}/>
-        <Text>Instructions:</Text>
-        <Text>2 players guess words in one minute</Text>
-        <View style={{padding: 10}}>
+         <Text style={styles.title}>VarChar</Text>
+         <Image source={pic} style={{width: 175, height: 166}}/>
+         <Text>Instructions:</Text>
+         <Text>2 players guess words in one minute</Text>
+         <View style={{padding: 10}}>
           <TextInput
             style={styles.input}
             placeholder="Player 1"
-            onChangeText={(name) => this.setState({name})}
-            value={this.state.name}
+            onChangeText={(player1) => this.setState({player1})}
+            value={this.state.player1}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Player 2"
+            onChangeText={(player2) => this.setState({player2})}
+            value={this.state.player2}
           />
         </View>
-        <TouchableHighlight onPress={this._onPressButton} underlayColor="white">
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Start Game</Text>
-          </View>
-        </TouchableHighlight>
+        <View style={{margin:50}}>
+          <Button
+            onPress={() => navigate('Category')}
+            title="Start Game" 
+          />
+        </View>
       </View>
     );
   }
@@ -78,3 +93,14 @@ const styles = StyleSheet.create({
     color: 'white'
   },
 });
+
+const VarChar = StackNavigator({
+  Home: { screen: HomeScreen },
+  Category: { screen: CategoryScreen },
+  Giver: { screen: GiverScreen },
+});
+
+export default () => <VarChar />;
+
+
+
