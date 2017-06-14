@@ -7,7 +7,7 @@ export default class ChatScreen extends React.Component {
     super(props);
     this.state = {
       category: '',
-      words: ['cat', 'dog', 'bird'],
+      words: ['cat', 'dog', 'bird', 'snake'],
     };
     this.handleCategoryInput=this.handleCategoryInput.bind(this);
     this._onPressButton = this._onPressButton.bind(this);
