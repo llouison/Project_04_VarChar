@@ -25,9 +25,11 @@ export default class GiverScreen extends React.Component {
   };
   render() {
     const { navigate } = this.props.navigation;
+    const { params } = this.props.navigation.state;
     return (
       <View style={styles.container}>
-        <Text>Word: Cat</Text>
+        <Text>Category: {params.category}</Text>
+        <Text>Word: {params.words[0]}</Text>
         <View style={{margin:50}}>
           <Button
             onPress={() => navigate('Category')}

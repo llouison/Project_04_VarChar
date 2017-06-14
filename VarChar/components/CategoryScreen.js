@@ -7,6 +7,7 @@ export default class ChatScreen extends React.Component {
     super(props);
     this.state = {
       category: '',
+      words: ['cat', 'dog', 'bird'],
     };
     this.handleCategoryInput=this.handleCategoryInput.bind(this);
     this._onPressButton = this._onPressButton.bind(this);
@@ -37,7 +38,7 @@ export default class ChatScreen extends React.Component {
         />
         <View style={{margin:50}}>
           <Button
-            onPress={() => navigate('Giver')}
+            onPress={() => navigate('Giver', { category: this.state.category, words: this.state.words })}
             title="Select" 
           />
         </View>
