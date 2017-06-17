@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StackNavigator } from 'react-navigation';
-import { StyleSheet, View, Text, TextInput, Button, Alert } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Button, TouchableOpacity, Alert } from 'react-native';
 
 export default class ChatScreen extends React.Component {
     constructor(props) {
@@ -22,26 +22,25 @@ export default class ChatScreen extends React.Component {
   }
 
   static navigationOptions = {
-    title: 'Category Selection',
+    title: 'Category',
   };
   render() {
     const { navigate } = this.props.navigation;
     const { params } = this.props.navigation.state;
     return (
       <View style={styles.container}>
-        <Text>Choose a Category {params.player1}</Text>
+        <Text style={styles.prompt}>Choose a Category {params.player}</Text>
         <TextInput
             style={styles.input}
             placeholder="Enter any word"
             onChangeText={(category) => this.setState({category})}
             value={this.state.category}
         />
-        <View style={{margin:50}}>
-          <Button
-            onPress={() => navigate('Giver', { category: this.state.category, words: this.state.words })}
-            title="Select" 
-          />
-        </View>
+        <TouchableOpacity onPress={() => navigate('Game', { category: this.state.category, words: this.state.words, player: params.player })} underlayColor="white">
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>Select</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -50,15 +49,37 @@ export default class ChatScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#6DD6DA',
+    backgroundColor: '#98E7EA',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  prompt: {
+    fontSize: 20,
+    color: '#E64230',
+    marginBottom: 20,
   },
   input: {
     width: 200, 
     height: 40, 
-    borderColor: 'black', 
+    padding: 10,
+    borderColor: '#77B5B7', 
     borderWidth: 1,
+    alignSelf: 'center',
+    backgroundColor: '#FAFAFA',
+    marginBottom: 20,
+  },
+  button: {
+    borderRadius: 5,
+    marginBottom: 10,
+    width: 175,
+    alignItems: 'center',
+    backgroundColor: '#FABF58',
+  },
+  buttonText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    padding: 15,
+    color: 'white'
   },
 });
 
