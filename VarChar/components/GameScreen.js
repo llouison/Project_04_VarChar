@@ -19,13 +19,13 @@ export default class GameScreen extends React.Component {
       gotItButton: styles.invisible,
       passButton: styles.invisible,
       startButton: styles.button3,
+      resultsButton: styles.invisible,
     };
     this.startGame = this.startGame.bind(this);
     this.tick = this.tick.bind(this);
     this.showPlayer = this.showPlayer.bind(this);
     this.gotWord = this.gotWord.bind(this);
     this.passWord = this.passWord.bind(this);
-    this.showResults = this.showResults.bind(this);
   }
 
   startGame(navigate, params){
@@ -36,6 +36,7 @@ export default class GameScreen extends React.Component {
       startButton: styles.invisible,
       passButton: styles.button2,
       gotItButton: styles.button,
+      resultsButton: styles.invisible,
     })
   }
 
@@ -44,16 +45,11 @@ export default class GameScreen extends React.Component {
     if (this.state.secondsRemaining === 0) {
       clearInterval(this.interval); 
       this.setState({
-        secondsRemaining: 'Times Up'
+        secondsRemaining: 'Times Up',
+        passButton: styles.invisible,
+        gotItButton: styles.invisible,
+        resultsButton: styles.button4,
       })
-      // this.showResults();
-    }
-  }
-
-  showResults(){
-    if (this.state.secondsRemaining === 0) {
-    Alert.alert('Results')
-      // navigate('Results', { player: params.player })
     }
   }
 
@@ -62,7 +58,7 @@ export default class GameScreen extends React.Component {
   }
 
   gotWord(){
-      Alert.alert('You got it!')
+    Alert.alert('You got it!')
   }
 
   passWord(wordArray) {
@@ -101,6 +97,11 @@ export default class GameScreen extends React.Component {
             <TouchableOpacity onPress={() => this.startGame(navigate, params)} underlayColor="white">
               <View style={this.state.startButton}>
                 <Text style={styles.buttonText}>Start</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigate('Results', { category: this.state.category, words: this.state.words, player: params.player })} underlayColor="white">
+              <View style={this.state.resultsButton}>
+                <Text style={styles.buttonText}>See Results</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -157,7 +158,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
   },
-   button: {
+  button: {
     borderRadius: 5,
     margin: 10,
     width: 100,
@@ -177,6 +178,13 @@ const styles = StyleSheet.create({
     width: 100,
     alignItems: 'center',
     backgroundColor: '#4DA167',
+  },
+  button4: {
+    borderRadius: 5,
+    margin: 10,
+    width: 150,
+    alignItems: 'center',
+    backgroundColor: '#FABF58',
   },
   buttonText: {
     color: 'white',
