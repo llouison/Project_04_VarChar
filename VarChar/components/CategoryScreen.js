@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
     width: 200, 
     height: 40, 
     padding: 10,
+    color: '#77B5B7',
     borderColor: '#77B5B7', 
     borderWidth: 1,
     alignSelf: 'center',
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     padding: 15,
-    color: 'white'
+    color: 'white',
   },
 });
 

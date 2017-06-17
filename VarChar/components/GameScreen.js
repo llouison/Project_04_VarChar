@@ -1,38 +1,59 @@
 import React, { Component } from 'react';
 import { StackNavigator } from 'react-navigation';
-import { StyleSheet, View, Text, TouchableOpacity, Alert, WebView, Dimensions } from 'react-native';
+import {  StyleSheet, 
+          View, 
+          Text, 
+          TouchableOpacity, 
+          Alert, 
+          WebView, 
+          Dimensions 
+        } from 'react-native';
 
-export default class GiverScreen extends React.Component {
+export default class GameScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      category: '',
       counter: 0,
-      word: 'Press Pass to Begin',
-      passButton: 'Start',
+      word: 'Press Start to Begin',
       secondsRemaining: 5,
+      gotItButton: styles.invisible,
+      passButton: styles.invisible,
+      startButton: styles.button3,
     };
+    this.startGame = this.startGame.bind(this);
     this.tick = this.tick.bind(this);
     this.showPlayer = this.showPlayer.bind(this);
     this.gotWord = this.gotWord.bind(this);
     this.passWord = this.passWord.bind(this);
     this.showResults = this.showResults.bind(this);
   }
-  componentDidMount(){
+
+  startGame(navigate, params){
     this.interval = setInterval(this.tick, 1000);
+    this.setState({
+      counter: this.state.counter + 1, 
+      word: params.words[this.state.counter], 
+      startButton: styles.invisible,
+      passButton: styles.button2,
+      gotItButton: styles.button,
+    })
   }
 
   tick() {
     this.setState({secondsRemaining: this.state.secondsRemaining - 1})
     if (this.state.secondsRemaining === 0) {
-      Alert.alert('Times Up!')
-      clearInterval(this.interval);
+      clearInterval(this.interval); 
+      this.setState({
+        secondsRemaining: 'Times Up'
+      })
+      // this.showResults();
     }
   }
 
-  showResults(navigate){
+  showResults(){
     if (this.state.secondsRemaining === 0) {
-      navigate('Results', { player: this.state.player })
+    Alert.alert('Results')
+      // navigate('Results', { player: params.player })
     }
   }
 
@@ -44,35 +65,42 @@ export default class GiverScreen extends React.Component {
       Alert.alert('You got it!')
   }
 
-  passWord(max, wordArray) {
-    Alert.alert('You passed!')
-    this.setState({passButton: 'Pass'})
-    if (this.state.counter !== max){
-      this.setState({counter: this.state.counter + 1, word: wordArray[this.state.counter]})
+  passWord(wordArray) {
+    if (this.state.counter !== wordArray.length){
+      this.setState({
+        counter: this.state.counter + 1, 
+        word: wordArray[this.state.counter]
+      })
     }
   }
 
-  showPlayer(params){
-    if (params.player === 'Player2') {
+  showPlayer(navigate, params){
+    if (params.player === 'Player 2') {
       return (
         <View>
-          <Text style={styles.gameText}>Word:{this.state.word} counter:{this.state.counter} max:{params.words.length}</Text>
+          <Text style={styles.gameText}>Word:{params.words[0]}</Text>
         </View>
       )
     } 
-    if (params.player === 'Player1') {
+    if (params.player === 'Player 1') {
       return (
         <View>
+        <Text style={styles.gameText}>Word:{this.state.word} counter:{this.state.counter} max:{params.words.length}</Text>
           <Text style={styles.gameText}>Category: {params.category}</Text>
           <View style={styles.controls}>
             <TouchableOpacity onPress={() => this.gotWord()} underlayColor="white">
-              <View style={styles.button}>
+              <View style={this.state.gotItButton}>
                 <Text style={styles.buttonText}>Got It</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.passWord(params.words.length, params.words)} underlayColor="white">
-              <View style={styles.button2}>
-                <Text style={styles.buttonText}>{this.state.passButton}</Text>
+            <TouchableOpacity onPress={() => this.passWord(params.words)} underlayColor="white">
+              <View style={this.state.passButton}>
+                <Text style={styles.buttonText}>Pass</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.startGame(navigate, params)} underlayColor="white">
+              <View style={this.state.startButton}>
+                <Text style={styles.buttonText}>Start</Text>
               </View>
             </TouchableOpacity>
           </View>
@@ -90,13 +118,12 @@ export default class GiverScreen extends React.Component {
     
     return (
         <View style={styles.container}>
-        <Text style={styles.gameText}>{this.state.secondsRemaining} seconds</Text>
+        <Text style={styles.gameText}>{this.state.secondsRemaining}</Text>
         <WebView
             source={{uri: 'https://llouison.github.io/p2p_videochat/#init'}}
             style={styles.mainCam}
         />
-        {this.showPlayer(params)}
-        {this.showResults(navigate)}
+        {this.showPlayer(navigate, params)}
         </View>
     );
   }
@@ -128,6 +155,7 @@ const styles = StyleSheet.create({
   },
   controls: {
     flexDirection: 'row',
+    justifyContent: 'center',
   },
    button: {
     borderRadius: 5,
@@ -143,11 +171,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#E64230',
   },
+  button3: {
+    borderRadius: 5,
+    margin: 10,
+    width: 100,
+    alignItems: 'center',
+    backgroundColor: '#4DA167',
+  },
   buttonText: {
+    color: 'white',
     fontSize: 20,
     fontWeight: 'bold',
     padding: 15,
-    color: 'white'
   },
+  invisible: {
+    display: 'none',
+  }
 });
-

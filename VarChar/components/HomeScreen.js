@@ -6,7 +6,7 @@ export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      player: 'Player1',
+      player: 'Player 1',
     };
     this.showInstructions=this.showInstructions.bind(this);
   }
@@ -26,8 +26,8 @@ export default class HomeScreen extends React.Component {
         <View>
         <Picker selectedValue={this.state.player}
             onValueChange={(itemValue, itemIndex) => this.setState({player: itemValue})}>
-            <Picker.Item label="Player 1" color='#E64230' value="Player1" />
-            <Picker.Item label="Player 2" color='#E64230' value="Player2" />
+            <Picker.Item label="Player 1" color='#E64230' value="Player 1" />
+            <Picker.Item label="Player 2" color='#E64230' value="Player 2" />
         </Picker>
         <Text style={styles.invisible}>Choose your position</Text>
         </View>

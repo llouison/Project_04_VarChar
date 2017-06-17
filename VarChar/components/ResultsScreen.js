@@ -30,7 +30,7 @@ export default class ResultsScreen extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.prompt}>Great Job {params.player}</Text>
-        <TouchableOpacity onPress={() => navigate('Category', { player: this.state.player })} underlayColor="white">
+        <TouchableOpacity onPress={() => navigate('Category', { player: params.player })} underlayColor="white">
           <View style={styles.button}>
             <Text style={styles.buttonText}>Play Again</Text>
           </View>
@@ -48,7 +48,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   prompt: {
-    fontSize: 20,
+    fontFamily: 'MarkerFelt-Wide',
+    fontSize: 25,
     color: '#E64230',
     marginBottom: 20,
   },
