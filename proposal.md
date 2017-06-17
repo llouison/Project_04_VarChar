@@ -15,12 +15,15 @@ VarChar is an interactive mobile video chat word-guessing game application. On t
 
 ## Technologies To Be Used
 - React Native - to simultaneously create a performant iOS and Android mobile application
-- Redux - to manage state in an application
+- React Navigation - to handle routing between screens
+- React Native Camera - to include video and audio camera features
+- Expo - to reduce the code to simple javascript and then translate it to be built for both platforms and to publish the app
+- Isomorphic fetch - to include a third party word association API
+- Firebase - to create and persist data
 - Node & Express - to create a database
 - SQL/ PG-Promise - to interact with the database
 - Socket.io - to include real-time bidirectional video/audio
-- Isomorphic fetch - maybe to include a third party words API
-- Heroku web hosting? Not sure how to launch the app
+
 
 ## Wireframes
 
@@ -71,14 +74,16 @@ Word.
 ## Links and Resources
 
 - https://facebook.github.io/react-native/
-- https://egghead.io/courses/react-native-fundamentals
+- https://github.com/vhpoet/react-native-styling-cheat-sheet
+- https://github.com/react-native-training/react-native-fonts
+- https://docs.expo.io/versions/v17.0.0/index.html
+- https://reactnavigation.org/docs/intro/
+- https://github.com/shama/letswritecode/tree/master/p2p-video-chat-webrtc
+- https://www.twinword.com/api/
+- https://docs.expo.io/versions/v17.0.0/guides/using-firebase.html
+
 - https://socket.io/docs/
 - https://socket.io/blog/socket-io-p2p/
 - https://github.com/socketio
-- https://www.twinword.com/api/
-- https://github.com/react-community/create-react-native-app
-- https://egghead.io/courses/getting-started-with-redux
-- http://www.reactnative.com/getting-started-with-react-native-and-redux/
-- https://medium.com/react-native-training/redux-4-ways-95a130da0cdc
 - https://github.com/react-native-training
-- https://github.com/markerikson/react-redux-links/blob/master/redux-side-effects.md
+- https://egghead.io/courses/react-native-fundamentals
