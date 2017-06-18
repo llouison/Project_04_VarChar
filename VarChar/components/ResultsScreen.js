@@ -50,17 +50,7 @@ const styles = StyleSheet.create({
   prompt: {
     fontFamily: 'MarkerFelt-Wide',
     fontSize: 25,
-    color: '#E64230',
-    marginBottom: 20,
-  },
-  input: {
-    width: 200, 
-    height: 40, 
-    padding: 10,
-    borderColor: '#77B5B7', 
-    borderWidth: 1,
-    alignSelf: 'center',
-    backgroundColor: '#FAFAFA',
+    color: '#FE5F55',
     marginBottom: 20,
   },
   button: {

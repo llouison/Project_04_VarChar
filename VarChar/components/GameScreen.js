@@ -81,8 +81,9 @@ export default class GameScreen extends React.Component {
     if (params.player === 'Player 1') {
       return (
         <View>
-        <Text style={styles.gameText}>Word:{this.state.word} counter:{this.state.counter} max:{params.words.length}</Text>
-          <Text style={styles.gameText}>Category: {params.category}</Text>
+        <Text style={styles.gameText}>Category: {params.category}</Text>
+        <Text style={styles.featureWord}>{this.state.word}</Text>
+        <Text style={styles.gameText}>Counter:{this.state.counter}</Text>
           <View style={styles.controls}>
             <TouchableOpacity onPress={() => this.gotWord()} underlayColor="white">
               <View style={this.state.gotItButton}>
@@ -120,10 +121,6 @@ export default class GameScreen extends React.Component {
     return (
         <View style={styles.container}>
         <Text style={styles.gameText}>{this.state.secondsRemaining}</Text>
-        <WebView
-            source={{uri: 'https://llouison.github.io/p2p_videochat/#init'}}
-            style={styles.mainCam}
-        />
         {this.showPlayer(navigate, params)}
         </View>
     );
@@ -137,14 +134,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  mainCam: {
-    flex: 1,
-    height: Dimensions.get('window').height,
-    width: Dimensions.get('window').width,
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: 10,
-  },
   gameText: {
     fontFamily: 'MarkerFelt-Wide',
     fontSize: 20,
@@ -153,6 +142,17 @@ const styles = StyleSheet.create({
     textShadowColor: '#77B5B7',
     textShadowOffset: {width: 1, height: 1},
     alignSelf: 'center',
+    marginBottom: 20,
+  },
+  featureWord: {
+    fontFamily: 'MarkerFelt-Wide',
+    fontSize: 30,
+    fontWeight: 'bold',
+    color: '#FE5F55',
+    textShadowColor: '#77B5B7',
+    textShadowOffset: {width: 1, height: 1},
+    alignSelf: 'center',
+    marginBottom: 20,
   },
   controls: {
     flexDirection: 'row',
