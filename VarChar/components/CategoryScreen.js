@@ -7,7 +7,7 @@ export default class ChatScreen extends React.Component {
     super(props);
     this.state = {
       category: '',
-      words: ['cat', 'dog', 'bird', 'snake'],
+      words: ['cat', 'dog', 'bird', 'snake', 'elephant', 'rabbit', 'lizard', 'octopus', 'raccoon', ],
     };
     this.handleCategoryInput=this.handleCategoryInput.bind(this);
     this._onPressButton = this._onPressButton.bind(this);
@@ -29,7 +29,7 @@ export default class ChatScreen extends React.Component {
     const { params } = this.props.navigation.state;
     return (
       <View style={styles.container}>
-        <Text style={styles.prompt}>Choose a Category {params.player}</Text>
+        <Text style={styles.prompt}>Choose a Category</Text>
         <TextInput
             style={styles.input}
             placeholder="Enter any word"
@@ -54,9 +54,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   prompt: {
-    fontSize: 20,
-    color: '#E64230',
+    fontFamily: 'MarkerFelt-Wide',
+    fontSize: 25,
+    color: '#FFF',
     marginBottom: 20,
+    textShadowColor: '#77B5B7',
+    textShadowOffset: {width: 1, height: 1},
   },
   input: {
     width: 200, 
