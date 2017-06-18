@@ -19,7 +19,6 @@ VarChar is an interactive mobile video chat word-guessing game application. On t
 - React Native Camera - to include video and audio camera features
 - Expo - to reduce the code to simple javascript and then translate it to be built for both platforms and to publish the app
 - Isomorphic fetch - to include a third party word association API
-- Firebase - to create and persist data
 - Node & Express - to create a database
 - SQL/ PG-Promise - to interact with the database
 - Socket.io - to include real-time bidirectional video/audio
@@ -67,8 +66,7 @@ Word.
 
 
 ## Advanced Features
-- How would the app keep track of the score?
-- User auth/login?
+- User auth/login
 
 
 ## Links and Resources
@@ -80,10 +78,6 @@ Word.
 - https://reactnavigation.org/docs/intro/
 - https://github.com/shama/letswritecode/tree/master/p2p-video-chat-webrtc
 - https://www.twinword.com/api/
-- https://docs.expo.io/versions/v17.0.0/guides/using-firebase.html
-
-- https://socket.io/docs/
-- https://socket.io/blog/socket-io-p2p/
-- https://github.com/socketio
 - https://github.com/react-native-training
 - https://egghead.io/courses/react-native-fundamentals
+- https://github.com/lwansbrough/react-native-camera
