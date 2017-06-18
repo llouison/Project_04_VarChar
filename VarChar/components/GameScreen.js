@@ -14,7 +14,7 @@ export default class GameScreen extends React.Component {
     this.state = {
       counter: 0,
       word: 'Press Start to Begin',
-      secondsRemaining: 5,
+      secondsRemaining: 60,
       gotItButton: styles.invisible,
       passButton: styles.invisible,
       startButton: styles.button3,
@@ -87,7 +87,7 @@ export default class GameScreen extends React.Component {
     if (params.player === 'Player 1') {
       return (
         <View>
-        <Text style={styles.gameText}>Category: {params.category}</Text>
+        <Text style={styles.gameText}>Category: {params.testFetch}</Text>
         <Text style={styles.featureWord}>{this.state.word}</Text>
           <View style={styles.controls}>
             <TouchableOpacity onPress={() => this.gotWord(params.words)} underlayColor="white">
