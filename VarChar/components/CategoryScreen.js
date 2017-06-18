@@ -1,24 +1,38 @@
 import React, { Component } from 'react';
 import { StackNavigator } from 'react-navigation';
 import { StyleSheet, View, Text, TextInput, Button, TouchableOpacity, Alert } from 'react-native';
+import { TWIN_WORD_KEY } from 'react-native-dotenv';
 
 export default class ChatScreen extends React.Component {
     constructor(props) {
     super(props);
     this.state = {
       category: '',
-      words: ['cat', 'dog', 'bird', 'snake', 'elephant', 'rabbit', 'lizard', 'octopus', 'raccoon', ],
+      words: [],
     };
     this.handleCategoryInput=this.handleCategoryInput.bind(this);
-    this._onPressButton = this._onPressButton.bind(this);
+    this.fetchWords = this.fetchWords.bind(this);
   }
 
   handleCategoryInput(event) {
     this.setState({category: event.target.value})
   }
 
-  _onPressButton() {
-    Alert.alert(`You entered ${this.state.category}`)
+  fetchWords() {
+    fetch(`https://twinword-word-associations-v1.p.mashape.com/associations/?entry=${this.state.category}`, {
+      headers: {
+        'X-Mashape-Key': TWIN_WORD_KEY,
+      },
+    })
+    .then((res) => {
+      res.json()
+      .then((jsonRes) => {
+        console.log(jsonRes);
+        this.setState({
+          words: jsonRes.associations_array,
+        })
+      })
+    })
   }
 
   static navigationOptions = {
@@ -36,9 +50,14 @@ export default class ChatScreen extends React.Component {
             onChangeText={(category) => this.setState({category})}
             value={this.state.category}
         />
-        <TouchableOpacity onPress={() => navigate('Game', { category: this.state.category, words: this.state.words, player: params.player })} underlayColor="white">
+        <TouchableOpacity onPress={() => navigate('Game', { category: this.state.category, words: this.state.words, player: params.player, testFetch: this.state.testFetch })} underlayColor="white">
           <View style={styles.button}>
             <Text style={styles.buttonText}>Select</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={this.fetchWords} underlayColor="white">
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>Fetch</Text>
           </View>
         </TouchableOpacity>
       </View>
