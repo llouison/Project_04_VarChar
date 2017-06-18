@@ -1,24 +1,40 @@
 import React, { Component } from 'react';
 import { StackNavigator } from 'react-navigation';
-import { StyleSheet, View, Text, TextInput, Button, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, 
+         View, 
+         Text, 
+         TouchableOpacity, 
+         ScrollView
+        } from 'react-native';
 
 export default class ResultsScreen extends React.Component {
     constructor(props) {
     super(props);
     this.state = {
-      category: '',
-      words: ['cat', 'dog', 'bird', 'snake'],
+      results: '',
     };
-    this.handleCategoryInput=this.handleCategoryInput.bind(this);
-    this._onPressButton = this._onPressButton.bind(this);
+    this.displayWordsGuessed=this.displayWordsGuessed.bind(this);
+    this.displayWordsMissed=this.displayWordsMissed.bind(this);
   }
 
-  handleCategoryInput(event) {
-    this.setState({category: event.target.value})
+  displayWordsGuessed(words) {
+    return words.map((word, index) => {
+        return (
+            <View key={index}>
+                <Text style={styles.textGuessed}>{word}</Text>
+            </View>
+        )
+    })
   }
 
-  _onPressButton() {
-    Alert.alert(`You entered ${this.state.category}`)
+  displayWordsMissed(words) {
+    return words.map((word, index) => {
+        return (
+            <View key={index}>
+                <Text style={styles.textMissed}>{word}</Text>
+            </View>
+        )
+    })
   }
 
   static navigationOptions = {
@@ -29,7 +45,11 @@ export default class ResultsScreen extends React.Component {
     const { params } = this.props.navigation.state;
     return (
       <View style={styles.container}>
-        <Text style={styles.prompt}>Great Job {params.player}</Text>
+        <Text style={styles.prompt}>Score: {params.wordsGuessed.length}</Text>
+        <ScrollView style={styles.scrollView}>
+            {this.displayWordsGuessed(params.wordsGuessed)}
+            {this.displayWordsMissed(params.wordsMissed)}
+        </ScrollView>
         <TouchableOpacity onPress={() => navigate('Category', { player: params.player })} underlayColor="white">
           <View style={styles.button}>
             <Text style={styles.buttonText}>Play Again</Text>
@@ -50,12 +70,39 @@ const styles = StyleSheet.create({
   prompt: {
     fontFamily: 'MarkerFelt-Wide',
     fontSize: 25,
-    color: '#FE5F55',
+    color: '#FFF',
     marginBottom: 20,
+    textShadowColor: '#77B5B7',
+    textShadowOffset: {width: 1, height: 1},
+  },
+  textGuessed: {
+    fontFamily: 'MarkerFelt-Wide',
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: '#FFF',
+    textShadowColor: '#77B5B7',
+    textShadowOffset: {width: 1, height: 1},
+    alignSelf: 'center',
+    marginBottom: 20,
+    textDecorationStyle: 'dashed'
+  },
+  textMissed: {
+    fontFamily: 'MarkerFelt-Wide',
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: '#E64230',
+    textShadowColor: '#77B5B7',
+    textShadowOffset: {width: 1, height: 1},
+    alignSelf: 'center',
+    marginBottom: 20,
+    textDecorationStyle: 'dashed'
+  },
+  scrollView: {
+    marginBottom: 10,
   },
   button: {
     borderRadius: 5,
-    marginBottom: 10,
+    marginBottom: 20,
     width: 175,
     alignItems: 'center',
     backgroundColor: '#FABF58',
