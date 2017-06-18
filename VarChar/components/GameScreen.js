@@ -36,7 +36,7 @@ export default class GameScreen extends React.Component {
       word: params.words[this.state.counter], 
       startButton: styles.invisible,
       passButton: styles.button2,
-      gotItButton: styles.button,
+      gotItButton: styles.button3,
       resultsButton: styles.invisible,
     })
   }
