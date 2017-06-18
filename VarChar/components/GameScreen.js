@@ -5,8 +5,7 @@ import {  StyleSheet,
           Text, 
           TouchableOpacity, 
           Alert, 
-          WebView, 
-          Dimensions 
+          ScrollView
         } from 'react-native';
 
 export default class GameScreen extends React.Component {
@@ -20,6 +19,8 @@ export default class GameScreen extends React.Component {
       passButton: styles.invisible,
       startButton: styles.button3,
       resultsButton: styles.invisible,
+      wordsGuessed: [],
+      wordsMissed: [],
     };
     this.startGame = this.startGame.bind(this);
     this.tick = this.tick.bind(this);
@@ -57,17 +58,22 @@ export default class GameScreen extends React.Component {
     clearInterval(this.interval);
   }
 
-  gotWord(){
-    Alert.alert('You got it!')
+  gotWord(wordArray){
+    this.setState({
+        counter: this.state.counter + 1, 
+        word: wordArray[this.state.counter],
+        wordsGuessed: this.state.wordsGuessed.concat(this.state.word),
+    })
   }
 
   passWord(wordArray) {
-    if (this.state.counter !== wordArray.length){
+    // if (this.state.counter !== wordArray.length){
       this.setState({
         counter: this.state.counter + 1, 
-        word: wordArray[this.state.counter]
+        word: wordArray[this.state.counter],
+        wordsMissed: this.state.wordsMissed.concat(this.state.word),
       })
-    }
+    // }
   }
 
   showPlayer(navigate, params){
@@ -83,9 +89,8 @@ export default class GameScreen extends React.Component {
         <View>
         <Text style={styles.gameText}>Category: {params.category}</Text>
         <Text style={styles.featureWord}>{this.state.word}</Text>
-        <Text style={styles.gameText}>Counter:{this.state.counter}</Text>
           <View style={styles.controls}>
-            <TouchableOpacity onPress={() => this.gotWord()} underlayColor="white">
+            <TouchableOpacity onPress={() => this.gotWord(params.words)} underlayColor="white">
               <View style={this.state.gotItButton}>
                 <Text style={styles.buttonText}>Got It</Text>
               </View>
@@ -100,7 +105,7 @@ export default class GameScreen extends React.Component {
                 <Text style={styles.buttonText}>Start</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigate('Results', { category: this.state.category, words: this.state.words, player: params.player })} underlayColor="white">
+            <TouchableOpacity onPress={() => navigate('Results', { category: this.state.category, words: this.state.words, player: params.player, wordsGuessed: this.state.wordsGuessed, wordsMissed: this.state.wordsMissed })} underlayColor="white">
               <View style={this.state.resultsButton}>
                 <Text style={styles.buttonText}>See Results</Text>
               </View>
@@ -120,7 +125,7 @@ export default class GameScreen extends React.Component {
     
     return (
         <View style={styles.container}>
-        <Text style={styles.gameText}>{this.state.secondsRemaining}</Text>
+        <Text style={styles.prompt}>{this.state.secondsRemaining}</Text>
         {this.showPlayer(navigate, params)}
         </View>
     );
@@ -133,6 +138,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#98E7EA',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  prompt: {
+    fontFamily: 'MarkerFelt-Wide',
+    fontSize: 25,
+    color: '#FFF',
+    marginBottom: 20,
+    textShadowColor: '#77B5B7',
+    textShadowOffset: {width: 1, height: 1},
   },
   gameText: {
     fontFamily: 'MarkerFelt-Wide',
