@@ -7,7 +7,6 @@ export default class HomeScreen extends React.Component {
     super(props);
     this.state = {
       player: 'Player 1',
-      logo: 'http://responsibledown.org/wp-content/uploads/2015/07/faq-icon.png',
     };
     this.showInstructions=this.showInstructions.bind(this);
   }
