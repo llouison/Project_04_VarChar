@@ -75,7 +75,7 @@ export default class ChatScreen extends React.Component {
             <Text style={styles.buttonText}>Search</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigate('Game', { category: this.state.category, words: this.state.words, player: params.player, testFetch: this.state.testFetch })} underlayColor="white">
+        <TouchableOpacity onPress={() => navigate('Game', { category: this.state.category, words: this.state.words, player: params.player})} underlayColor="white">
           <View style={this.state.play}>
             <Text style={styles.buttonText}>Play</Text>
           </View>
